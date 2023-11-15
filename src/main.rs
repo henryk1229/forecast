@@ -1,5 +1,6 @@
 use clap::Parser;
 use dotenv;
+use serde::Deserialize;
 
 const LAT: f32 = -41.2;
 const LON: f32 = 174.7;
@@ -12,11 +13,13 @@ struct Args {
     #[arg(short, default_value_t = 0)]
     days: u8,
 }
+#[derive(Deserialize, Debug)]
 
 struct Coord {
     lat: f32,
     lon: f32,
 }
+#[derive(Deserialize, Debug)]
 
 struct Weather {
     id: u32,
@@ -24,16 +27,17 @@ struct Weather {
     description: String, 
     icon: String,
 }
+#[derive(Deserialize, Debug)]
 
 struct CurrentWeatherMain {
     temp: f32,
     feels_like: f32,
 }
 
-// #[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct CurrentWeather {
     coord: Coord,
-    weather: Weather,
+    weather: Vec<Weather>,
     base: String,
     main: CurrentWeatherMain,
 }
